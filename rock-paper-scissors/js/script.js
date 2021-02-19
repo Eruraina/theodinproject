@@ -20,6 +20,10 @@ const again_btn = document.getElementById('again-btn');
 const user_img = document.getElementById('merlin-img');
 const computer_img = document.getElementById('morgana-img');
 var buttons_btn = document.querySelector('.select-button');
+const merlin_img = document.getElementById('merlin-img');
+const morgana_img = document.getElementById('morgana-img');
+const merlin_div = document.getElementById('merlin');
+const morgana_div = document.getElementById('morgana');
 
 // Function to play enter button audio on click
 function playEnter() {
@@ -34,6 +38,7 @@ function hideContent() {
 }
 hideContent();
 
+// FADE EFFECTS
 // FadeOut effect for the start-container
 function fadeOutStart() {
     var fadeTarget = document.getElementById("start-container");
@@ -66,6 +71,115 @@ function fadeInHead() {
     }, 300);
 }
 
+// FadeOut effect for the head
+function fadeOutHead() {
+    var fadeTarget = document.getElementById("head");
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '1s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
+
+// FadeOut effect for the merlin
+function fadeOutMerlin() {
+    var fadeTarget = document.getElementById("merlin");
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '1s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
+
+// FadeOut effect for the morgana
+function fadeOutMorgana() {
+    var fadeTarget = document.getElementById("morgana");
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '1s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
+
+// FadeOut effect for the merlin-res, morgana-res, and draw-res
+function fadeOutMerlinRes() {
+    var fadeTarget = document.getElementById("merlin-res");
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '1s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
+
+function fadeOutMorganaRes() {
+    var fadeTarget = document.getElementById("morgana-res");
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '1s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
+
+function fadeOutDrawRes() {
+    var fadeTarget = document.getElementById("draw-res");
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '1s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
+
+// FadeOut effect for the buttons
+function fadeOutButtons() {
+    var fadeTarget = document.querySelector('.buttons');
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.transition = '2s';
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 300);
+}
 
 // FadeIn effect for the end-container
 function fadeInEnd() {
@@ -91,7 +205,7 @@ document.getElementById("start-container").addEventListener('click', () => {
         fadeInEnd();
         fadeInHead();
         start_div.style.display = 'none';
-    }, 3000);
+    }, 8000);
 });
 
 // Random computer choice
@@ -135,12 +249,19 @@ function playLoser() {
     loserSound.play();
 }
 
+// Function to play draw audio on tie game
+function playDraw() {
+    const drawSound = document.getElementById('draw');
+    drawSound.currentTime = 0;
+    drawSound.play();
+}
+
 // If the User wins
 function win(userChoice, computerChoice) {
     userScore++;
     userScore_p.innerHTML = userScore;
     computerScore_p.innerHTML = computerScore;
-    playWin();
+    // playWin();
     removeLoseShadow();
     user_img.classList.add('win-color');
     computer_img.classList.add('lose-color');
@@ -152,7 +273,7 @@ function lose(userChoice, computerChoice) {
     computerScore++;
     computerScore_p.innerHTML = computerScore;
     userScore_p.innerHTML = userScore;
-    playLoss();
+    // playLoss();
     removeWinShadow();
     user_img.classList.add('lose-color');
     computer_img.classList.add('win-color');
@@ -180,6 +301,7 @@ function game(userChoice) {
     } else if (userChoice == 'paper' && computerChoice == 'rock') {
         win(userChoice, computerChoice);
         computerColor(computerChoice);
+        playRound(userScore, computerScore);
         return "win";
     } else if (userChoice == 'scissors' && computerChoice == 'paper') {
         win(userChoice, computerChoice);
@@ -211,28 +333,53 @@ function game(userChoice) {
 }
 
 // Function to decide who's the winner
-function playRound(userScore, computerScore,) {
-    if (userScore == 5 || computerScore == 5) {
+function playRound(userScore, computerScore, drawScore) {
+    if (userScore == 5 || computerScore == 5 || drawScore > 5) {
         if (userScore > computerScore) {
             comment_div.innerHTML = "You did it! You saved Albion!";
             comment_div.classList.add('winner-comment');
             disableButtons();
             again_btn.style.display = 'inline';
             again_btn.classList.add('computerPick');
+            fadeOutHead();
+            fadeOutButtons();
+            fadeOutMorgana();
+            fadeOutMerlinRes();
+            fadeOutMorganaRes();
+            fadeOutDrawRes();
             playWinner();
+            merlin_img.classList.add('merlin-win');
+            again_btn.classList.add('end-again');
+            comment_div.classList.add('end-comment');
         } else if (computerScore > userScore) {
             comment_div.innerHTML = "You lost. Morgana threw a dark curse on Albion!";
             comment_div.classList.add('loser-comment');
             disableButtons();
             again_btn.style.display = 'inline';
             again_btn.classList.add('computerPick');
+            fadeOutHead();
+            fadeOutButtons();
+            fadeOutMerlin();
+            fadeOutMerlinRes();
+            fadeOutMorganaRes();
+            fadeOutDrawRes();
             playLoser();
-        } else {
-            comment_div.innerHTML = "That was close! You managed to hold her back!";
-            comment_div.classList.add('draw-comment');
-            disableButtons();
-            again_btn.style.display = 'inline';
-            again_btn.classList.add('computerPick');
+            morgana_img.classList.add('morgana-win');
+            again_btn.classList.add('end-again');
+            comment_div.classList.add('end-comment');
+        } else if (drawScore > 5 ) {
+            if (userScore == computerScore) {
+                comment_div.innerHTML = "That was close! You managed to hold her back!";
+                comment_div.classList.add('draw-comment');
+                disableButtons();
+                again_btn.style.display = 'inline';
+                again_btn.classList.add('computerPick');
+                fadeOutMerlinRes();
+                fadeOutMorganaRes();
+                fadeOutDrawRes();
+                playDraw();
+                comment_div.classList.add('end-comment');
+            }
         }
     }
 }
@@ -259,15 +406,27 @@ main();
 function computerColor(computerChoice) {
     if (computerChoice === 'rock') {
             removeColor();
+            compRock_btn.style.opacity = 1;
             compRock_btn.classList.add('computerPick');
+            window.setTimeout(function() {
+                compRock_btn.style.opacity = 0;
+            }, 1000);
     }
     if (computerChoice === 'paper') {
             removeColor();
+            compPaper_btn.style.opacity = 1;
             compPaper_btn.classList.add('computerPick');
+            window.setTimeout(function() {
+                compPaper_btn.style.opacity = 0;
+            }, 1000);
     }
     if (computerChoice === 'scissors') {
             removeColor();
+            compScissors_btn.style.opacity = 1;
             compScissors_btn.classList.add('computerPick');
+            window.setTimeout(function() {
+                compScissors_btn.style.opacity = 0;
+            }, 1000);
     }
 }
 
