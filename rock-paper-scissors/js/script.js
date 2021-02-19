@@ -221,6 +221,14 @@ function getComputerChoice(){
     }
 }
 
+// Function to play win audion on click
+function playSelect() {
+    const selectSound = document.getElementById('select');
+    selectSound.currentTime = 0;
+    selectSound.play();
+}
+buttons_btn.addEventListener('click', playSelect);
+
 // Function to play win audio on winning a round
 function playWin() {
     const winSound = document.getElementById('win');
@@ -339,8 +347,10 @@ function playRound(userScore, computerScore, drawScore) {
             comment_div.innerHTML = "You did it! You saved Albion!";
             comment_div.classList.add('winner-comment');
             disableButtons();
-            again_btn.style.display = 'inline';
-            again_btn.classList.add('computerPick');
+            window.setTimeout(function() {
+                again_btn.style.display = 'inline';
+                again_btn.classList.add('computerPick');
+            }, 2000);
             fadeOutHead();
             fadeOutButtons();
             fadeOutMorgana();
@@ -355,8 +365,10 @@ function playRound(userScore, computerScore, drawScore) {
             comment_div.innerHTML = "You lost. Morgana threw a dark curse on Albion!";
             comment_div.classList.add('loser-comment');
             disableButtons();
-            again_btn.style.display = 'inline';
-            again_btn.classList.add('computerPick');
+            window.setTimeout(function() {
+                again_btn.style.display = 'inline';
+                again_btn.classList.add('computerPick');
+            }, 2000);
             fadeOutHead();
             fadeOutButtons();
             fadeOutMerlin();
@@ -372,8 +384,10 @@ function playRound(userScore, computerScore, drawScore) {
                 comment_div.innerHTML = "That was close! You managed to hold her back!";
                 comment_div.classList.add('draw-comment');
                 disableButtons();
-                again_btn.style.display = 'inline';
-                again_btn.classList.add('computerPick');
+                window.setTimeout(function() {
+                    again_btn.style.display = 'inline';
+                    again_btn.classList.add('computerPick');
+                }, 2000);
                 fadeOutMerlinRes();
                 fadeOutMorganaRes();
                 fadeOutDrawRes();
