@@ -227,7 +227,6 @@ function playSelect() {
     selectSound.currentTime = 0;
     selectSound.play();
 }
-buttons_btn.addEventListener('click', playSelect);
 
 // Function to play win audio on winning a round
 function playWin() {
@@ -402,14 +401,17 @@ function playRound(userScore, computerScore, drawScore) {
 // Add function to Users buttons
 function main() {
     rock_btn.addEventListener('click', function() {
+        playSelect();
         game("rock");
     });
 
     paper_btn.addEventListener('click', function() {
+        playSelect();
         game("paper");
     });
 
     scissors_btn.addEventListener('click', function() {
+        playSelect();
         game("scissors");
     });
 }
