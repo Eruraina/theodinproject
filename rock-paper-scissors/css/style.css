@@ -22,7 +22,7 @@ body {
   
 #content-wrap {
     padding-bottom: 2.5rem;
-    text-align: center; 
+    text-align: center;
 }
   
 #footer {
@@ -39,11 +39,13 @@ body {
 
 #end-container {
     opacity: 0;
+    margin-bottom: 50px;
 }
 
 #head {
     opacity: 0;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #welcome {
@@ -58,7 +60,7 @@ body {
     color: #CBD8BF;
     font-family: 'Tangerine', cursive;
     font-size: 2em;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     text-shadow: 3px 3px 2px black;
 }
@@ -225,7 +227,7 @@ footer {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 0px;
 }
 
 footer span {
@@ -236,6 +238,63 @@ hr {
     width: 50%;
     margin: 0 auto 10px auto;
     border: 1px solid rgba(203, 216, 191, 0.19);
+}
+
+#winner-comment {
+    opacity: 0;
+    grid-row: 2/3;
+    grid-column: 1/5;
+    justify-self: center;
+    color: #CBD8BF;
+    text-align: center;
+    font-family: 'Tangerine', cursive;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    align-self: center;
+    font-size: 4em;
+    text-shadow: 4px 4px 7px #34801E;
+    text-decoration: underline;
+    transition: all 2s ease;
+}
+
+#loser-comment {
+    opacity: 0;
+    grid-row: 2/3;
+    grid-column: 1/5;
+    justify-self: center;
+    color: #CBD8BF;
+    text-align: center;
+    font-family: 'Tangerine', cursive;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    align-self: center;
+    font-size: 4em;
+    text-shadow: 4px 4px 7px #6d0404;
+    text-decoration: underline;
+    transition: all 2s ease;
+}
+
+#draw-comment {
+    opacity: 0;
+    grid-row: 2/3;
+    grid-column: 1/5;
+    justify-self: center;
+    color: #CBD8BF;
+    text-align: center;
+    font-family: 'Tangerine', cursive;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    align-self: center;
+    font-size: 4em;
+    text-shadow: 4px 4px 7px #3D443B;
+    text-decoration: underline;
+    transition: all 2s ease;
 }
 
 /* Media queries */
@@ -298,7 +357,7 @@ hr {
 }
 
 /* Small mobile */
-@media (min-width: 767px) and (max-width: 626px) {
+@media (max-width: 767px) and (min-width: 626px) {
 
     #results {
         display: flex;
@@ -365,7 +424,7 @@ hr {
     }
 }
 
-@media only screen and (max-device-width: 625px) {
+@media (max-device-width: 625px) {
 
     #welcome {
         font-size: 7em;
@@ -378,7 +437,7 @@ hr {
     #end-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        margin-top: 100px;
+        margin-top: 0;
     }
 
     #head {
@@ -391,7 +450,7 @@ hr {
         justify-items: center;
         transform: scale(1.5) translate(0, 80px);
         padding: 10px;
-        margin-top: 20px;
+        margin-top: 0;
         position: relative;
     }
 
@@ -404,7 +463,7 @@ hr {
     #results {
         grid-column: 2/4;
         grid-row: 2;
-        transform: translate(0, 50%);
+        transform: translate(0, 55%);
     }
 
     h5 {
@@ -419,7 +478,7 @@ hr {
         background-color: rgba(255, 255, 255, 0.5);
         color: black;
         font-weight: bolder;
-        font-size: 5em;
+        font-size: 4em;
         width: 150%;
         justify-self: center;
     }
@@ -428,58 +487,14 @@ hr {
         font-size: 3em;
         justify-self: center;
     }
+
     .select-button {
         background-color: rgba(5, 5, 5, 0.8);
         border-radius: 10px;
     }
 
     .morgana-win {
-        transform: scale(1.6) translate(0, 5%) !important;
-        transition: all 2s ease;
-    }
-
-    #winner-comment {
-        color: #CBD8BF;
-        text-align: center;
-        font-family: 'Tangerine', cursive;
-        background-color: rgba(255, 255, 255, 0.2);
-        padding: 5px;
-        border-radius: 10px;
-        align-self: center;
-        font-size: 2.5em;
-        text-shadow: 4px 4px 5px #34801E;
-        text-decoration: underline;
-        transform: scale(2.2) translate(0, 400%);
-        transition: all 2s ease;
-    }
-    
-    #loser-comment {
-        color: #CBD8BF;
-        text-align: center;
-        font-family: 'Tangerine', cursive;
-        background-color: rgba(255, 255, 255, 0.2);
-        padding: 5px;
-        border-radius: 10px;
-        align-self: center;
-        font-size: 2.5em;
-        text-shadow: 4px 4px 5px #6d0404;
-        text-decoration: underline;
-        transform: scale(2.2) translate(0, 4000%);
-        transition: all 2s ease;
-    }
-    
-    #draw-comment {
-        color: #CBD8BF;
-        text-align: center;
-        font-family: 'Tangerine', cursive;
-        background-color: rgba(255, 255, 255, 0.2);
-        padding: 5px;
-        border-radius: 10px;
-        align-self: center;
-        font-size: 2.5em;
-        text-shadow: 4px 4px 5px #3D443B;
-        text-decoration: underline;
-        transform: scale(1.2) translate(0, 4000%);
+        transform: scale(1.1) !important;
         transition: all 2s ease;
     }
 }
@@ -497,20 +512,5 @@ hr {
 
 .lose-color {
     box-shadow: 1px 2px 10px #C71313 !important;
-}
-
-.merlin-win {
-    transform: translate(0, 5%);
-    transition: all 2s ease;
-}
-
-.morgana-win {
-    transform:translate(0, 5%);
-    transition: all 2s ease;
-}
-
-.end-again {
-    transform: scale(1.1) translate(0, 20%);
-    transition: all 2s ease;
 }
 

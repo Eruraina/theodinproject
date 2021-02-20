@@ -24,6 +24,7 @@ const merlin_img = document.getElementById('merlin-img');
 const morgana_img = document.getElementById('morgana-img');
 const merlin_div = document.getElementById('merlin');
 const morgana_div = document.getElementById('morgana');
+const body = document.getElementById('body');
 
 
 // Function to play enter button audio on click
@@ -76,10 +77,10 @@ function fadeInEffect(elId, seconds) {
 document.getElementById("start-button").addEventListener('click', () => {
     fadeOutEffect("start-container", '2s');
     window.setTimeout(function() {
-        fadeInEffect("end-container", '6s');
-        fadeInEffect("head", '6s');
+        fadeInEffect("end-container", '10s');
+        fadeInEffect("head", '10s');
         start_div.style.display = 'none';
-    }, 5000);
+    }, 4000);
 });
 
 // Random computer choice
@@ -219,6 +220,7 @@ function playRound(userScore, computerScore, drawScore) {
         if (userScore > computerScore) {
             disableButtons();
             window.setTimeout(function() {
+                body.style.marginTop = '50px';
                 again_btn.style.display = 'inline';
                 again_btn.classList.add('computerPick');
                 head_div
@@ -231,14 +233,19 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(comment_div, 2000);
             removeFadeOut(results_div, 2000);
             playWinner();
-            end_div.style.display = 'flex';
-            end_div.style.flexDirection = 'column';
+            window.setTimeout(function() {
+                body.style.display = 'tablet';
+                end_div.style.maxHeight = '100vh';
+                end_div.style.display = 'block';
+                end_div.style.transition = '20s'
+            },2000);
             commentWiner();
             merlin_img.classList.add('merlin-win');
             again_btn.classList.add('end-again');
         } else if (computerScore > userScore) {
             disableButtons();
             window.setTimeout(function() {
+                body.style.marginTop = '50px';
                 again_btn.style.display = 'inline';
                 again_btn.classList.add('computerPick');
             }, 2000);
@@ -250,8 +257,13 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(comment_div, 2000);
             removeFadeOut(results_div, 2000);
             playLoser();
-            end_div.style.display = 'flex';
-            end_div.style.flexDirection = 'column';
+            window.setTimeout(function() {
+                body.style.display = 'tablet';
+                end_div.style.maxHeight = '100vh';
+                end_div.style.display = 'block';
+                end_div.style.transition = '20s'
+                morgana_img.style.height = '50%';
+            },2000);
             commentLoser();
             morgana_img.classList.add('morgana-win');
             again_btn.classList.add('end-again');
@@ -259,6 +271,7 @@ function playRound(userScore, computerScore, drawScore) {
             if (userScore == computerScore) {
                 disableButtons();
                 window.setTimeout(function() {
+                    body.style.marginTop = '50px';
                     again_btn.style.display = 'inline';
                     again_btn.classList.add('computerPick');
                 }, 2000);
@@ -269,8 +282,19 @@ function playRound(userScore, computerScore, drawScore) {
                 removeFadeOut(comment_div, 2000);
                 removeFadeOut(results_div, 2000);
                 playDraw();
-                end_div.style.display = 'flex';
-                end_div.style.flexDirection = 'column';
+                window.setTimeout(function() {
+                    body.style.display = 'tablet';
+                    end_div.style.maxHeight = '100vh';
+                    end_div.style.display = 'grid';
+                    end_div.style.gridTemplateColumns = '1fr 1fr 1fr 1fr';
+                    end_div.style.gridTemplateRows = '1fr 1fr';
+                    merlin_img.style.height = '50%';
+                    morgana_img.style.height = '50%';
+                    end_div.style.gridRowGap = '30px';
+                    merlin_img.style.gridColumn = '1/3';
+                    morgana_img.style.gridColumn = '3/5';
+                    end_div.style.transition = 'all 3s ease-in';
+                },2000);
                 commentDraw();
             }
         }
@@ -370,35 +394,35 @@ function removeFadeOut( el, speed ) {
 
 // Function to create the end comment
 function commentWiner(){
-    var endComment = document.createElement('div');
-    var node = document.createTextNode('You did it! You saved Albion!');
-    endComment.setAttribute('id', 'winner-comment');
-    endComment.appendChild(node);
-    end_div.appendChild(endComment);
     window.setTimeout(function() {
-        fadeInEffect('winner-comment', '2s');
+        var endComment = document.createElement('div');
+        var node = document.createTextNode('You did it! You saved Albion!');
+        endComment.setAttribute('id', 'winner-comment');
+        endComment.appendChild(node);
+        merlin_div.appendChild(endComment);
+        fadeInEffect('winner-comment', '3s');
     }, 2000);
 }
 
 function commentLoser(){
-    var endComment = document.createElement('div');
-    var node = document.createTextNode('You lost. Morgana threw a dark curse on Albion!');
-    endComment.setAttribute('id', 'loser-comment');
-    endComment.appendChild(node);
-    end_div.appendChild(endComment);
     window.setTimeout(function() {
-        fadeInEffect('loser-comment', '2s');
+        var endComment = document.createElement('div');
+        var node = document.createTextNode('You lost. Morgana threw a dark curse on Albion!');
+        endComment.setAttribute('id', 'loser-comment');
+        endComment.appendChild(node);
+        morgana_div.appendChild(endComment);
+        fadeInEffect('loser-comment', '3s');
     }, 2000);
 }
 
 function commentDraw(){
-    var endComment = document.createElement('div');
-    var node = document.createTextNode('That was close! You managed to hold her back!');
-    endComment.setAttribute('id', 'draw-comment');
-    endComment.appendChild(node);
-    end_div.appendChild(endComment);
     window.setTimeout(function() {
-        fadeInEffect('draw-comment', '2s');
+        var endComment = document.createElement('div');
+        var node = document.createTextNode('That was close! You managed to hold her back!');
+        endComment.setAttribute('id', 'draw-comment');
+        endComment.appendChild(node);
+        end_div.appendChild(endComment);
+        fadeInEffect('draw-comment', '3s');
     }, 2000);
 }
 
