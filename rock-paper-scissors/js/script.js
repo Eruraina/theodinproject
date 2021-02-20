@@ -25,6 +25,7 @@ const morgana_img = document.getElementById('morgana-img');
 const merlin_div = document.getElementById('merlin');
 const morgana_div = document.getElementById('morgana');
 
+
 // Function to play enter button audio on click
 function playEnter() {
     const buttonEnter = document.querySelector('#enter');
@@ -39,15 +40,15 @@ function hideContent() {
 hideContent();
 
 // FADE EFFECTS
-// FadeOut effect for the start-container
-function fadeOutStart() {
-    var fadeTarget = document.getElementById("start-container");
+// FadeOut
+function fadeOutEffect(elId, seconds) {
+    var fadeTarget = document.getElementById(elId);
     var fadeEffect = setInterval(function () {
         if (!fadeTarget.style.opacity) {
             fadeTarget.style.opacity = 1;
         }
         if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '2s';
+            fadeTarget.style.transition = seconds;
             fadeTarget.style.opacity -= 0.1;
         } else {
             clearInterval(fadeEffect);
@@ -55,157 +56,30 @@ function fadeOutStart() {
     }, 300);
 }
 
-// FadeIn effect for the head
-function fadeInHead() {
-    var fadeTarget = document.getElementById("head");
+// FadeIn
+function fadeInEffect(elId, seconds) {
+    var fadeTarget = document.getElementById(elId);
     var fadeEffect = setInterval(function () {
         if (!fadeTarget.style.opacity) {
             fadeTarget.style.opacity = 0;
         }
         if (fadeTarget.style.opacity < 1) {
-            fadeTarget.style.transition = '3s';
+            fadeTarget.style.transition = seconds;
             fadeTarget.style.opacity += 1;
         } else {
             clearInterval(fadeEffect);
         }
     }, 300);
 }
-
-// FadeOut effect for the head
-function fadeOutHead() {
-    var fadeTarget = document.getElementById("head");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '1s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-// FadeOut effect for the merlin
-function fadeOutMerlin() {
-    var fadeTarget = document.getElementById("merlin");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '1s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-// FadeOut effect for the morgana
-function fadeOutMorgana() {
-    var fadeTarget = document.getElementById("morgana");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '1s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-// FadeOut effect for the merlin-res, morgana-res, and draw-res
-function fadeOutMerlinRes() {
-    var fadeTarget = document.getElementById("merlin-res");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '1s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-function fadeOutMorganaRes() {
-    var fadeTarget = document.getElementById("morgana-res");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '1s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-function fadeOutDrawRes() {
-    var fadeTarget = document.getElementById("draw-res");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '1s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-// FadeOut effect for the buttons
-function fadeOutButtons() {
-    var fadeTarget = document.querySelector('.buttons');
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.transition = '2s';
-            fadeTarget.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
-// FadeIn effect for the end-container
-function fadeInEnd() {
-    var fadeTarget = document.getElementById("end-container");
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 0;
-        }
-        if (fadeTarget.style.opacity < 1) {
-            fadeTarget.style.transition = '3s';
-            fadeTarget.style.opacity += 1;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 300);
-}
-
 
 // FadingOut the start-container and FadingIn the end-container
-document.getElementById("start-container").addEventListener('click', () => {
-    fadeOutStart();
+document.getElementById("start-button").addEventListener('click', () => {
+    fadeOutEffect("start-container", '2s');
     window.setTimeout(function() {
-        fadeInEnd();
-        fadeInHead();
+        fadeInEffect("end-container", '6s');
+        fadeInEffect("head", '6s');
         start_div.style.display = 'none';
-    }, 8000);
+    }, 5000);
 });
 
 // Random computer choice
@@ -343,55 +217,61 @@ function game(userChoice) {
 function playRound(userScore, computerScore, drawScore) {
     if (userScore == 5 || computerScore == 5 || drawScore > 5) {
         if (userScore > computerScore) {
-            comment_div.innerHTML = "You did it! You saved Albion!";
-            comment_div.classList.add('winner-comment');
             disableButtons();
             window.setTimeout(function() {
                 again_btn.style.display = 'inline';
                 again_btn.classList.add('computerPick');
+                head_div
             }, 2000);
-            fadeOutHead();
-            fadeOutButtons();
-            fadeOutMorgana();
-            fadeOutMerlinRes();
-            fadeOutMorganaRes();
-            fadeOutDrawRes();
+            removeFadeOut(head_div, 2000);
+            removeFadeOut(morgana_div, 2000);
+            removeFadeOut(rock_btn, 2000);
+            removeFadeOut(paper_btn, 2000);
+            removeFadeOut(scissors_btn, 2000);
+            removeFadeOut(comment_div, 2000);
+            removeFadeOut(results_div, 2000);
             playWinner();
+            end_div.style.display = 'flex';
+            end_div.style.flexDirection = 'column';
+            commentWiner();
             merlin_img.classList.add('merlin-win');
             again_btn.classList.add('end-again');
-            comment_div.classList.add('end-comment');
         } else if (computerScore > userScore) {
-            comment_div.innerHTML = "You lost. Morgana threw a dark curse on Albion!";
-            comment_div.classList.add('loser-comment');
             disableButtons();
             window.setTimeout(function() {
                 again_btn.style.display = 'inline';
                 again_btn.classList.add('computerPick');
             }, 2000);
-            fadeOutHead();
-            fadeOutButtons();
-            fadeOutMerlin();
-            fadeOutMerlinRes();
-            fadeOutMorganaRes();
-            fadeOutDrawRes();
+            removeFadeOut(head_div, 2000);
+            removeFadeOut(merlin_div, 2000);
+            removeFadeOut(compRock_btn, 2000);
+            removeFadeOut(compPaper_btn, 2000);
+            removeFadeOut(compScissors_btn, 2000);
+            removeFadeOut(comment_div, 2000);
+            removeFadeOut(results_div, 2000);
             playLoser();
+            end_div.style.display = 'flex';
+            end_div.style.flexDirection = 'column';
+            commentLoser();
             morgana_img.classList.add('morgana-win');
             again_btn.classList.add('end-again');
-            comment_div.classList.add('end-comment');
         } else if (drawScore > 5 ) {
             if (userScore == computerScore) {
-                comment_div.innerHTML = "That was close! You managed to hold her back!";
-                comment_div.classList.add('draw-comment');
                 disableButtons();
                 window.setTimeout(function() {
                     again_btn.style.display = 'inline';
                     again_btn.classList.add('computerPick');
                 }, 2000);
-                fadeOutMerlinRes();
-                fadeOutMorganaRes();
-                fadeOutDrawRes();
+                removeFadeOut(head_div, 2000);
+                removeFadeOut(compRock_btn, 2000);
+                removeFadeOut(compPaper_btn, 2000);
+                removeFadeOut(compScissors_btn, 2000);
+                removeFadeOut(comment_div, 2000);
+                removeFadeOut(results_div, 2000);
                 playDraw();
-                comment_div.classList.add('end-comment');
+                end_div.style.display = 'flex';
+                end_div.style.flexDirection = 'column';
+                commentDraw();
             }
         }
     }
@@ -476,3 +356,49 @@ function enableButtons() {
     paper_btn.disabled =  false;
     scissors_btn.disabled = false; 
 }
+
+// Function to remove elements
+function removeFadeOut( el, speed ) {
+    var seconds = speed/1000;
+    el.style.transition = "opacity "+ seconds +"s ease";
+
+    el.style.opacity = 0;
+    setTimeout(function() {
+        el.parentNode.removeChild(el);
+    }, speed);
+}
+
+// Function to create the end comment
+function commentWiner(){
+    var endComment = document.createElement('div');
+    var node = document.createTextNode('You did it! You saved Albion!');
+    endComment.setAttribute('id', 'winner-comment');
+    endComment.appendChild(node);
+    end_div.appendChild(endComment);
+    window.setTimeout(function() {
+        fadeInEffect('winner-comment', '2s');
+    }, 2000);
+}
+
+function commentLoser(){
+    var endComment = document.createElement('div');
+    var node = document.createTextNode('You lost. Morgana threw a dark curse on Albion!');
+    endComment.setAttribute('id', 'loser-comment');
+    endComment.appendChild(node);
+    end_div.appendChild(endComment);
+    window.setTimeout(function() {
+        fadeInEffect('loser-comment', '2s');
+    }, 2000);
+}
+
+function commentDraw(){
+    var endComment = document.createElement('div');
+    var node = document.createTextNode('That was close! You managed to hold her back!');
+    endComment.setAttribute('id', 'draw-comment');
+    endComment.appendChild(node);
+    end_div.appendChild(endComment);
+    window.setTimeout(function() {
+        fadeInEffect('draw-comment', '2s');
+    }, 2000);
+}
+
