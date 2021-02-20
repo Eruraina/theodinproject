@@ -234,7 +234,7 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(results_div, 2000);
             playWinner();
             window.setTimeout(function() {
-                body.style.display = 'tablet';
+                body.style.display = 'tablet !important';
                 end_div.style.maxHeight = '100vh';
                 end_div.style.display = 'block';
                 end_div.style.transition = '20s'
