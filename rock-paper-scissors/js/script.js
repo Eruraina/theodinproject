@@ -234,13 +234,12 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(results_div, 2000);
             playWinner();
             window.setTimeout(function() {
-                body.style.display = 'tablet';
+                body.classList.add('body-end');
                 end_div.style.maxHeight = '100vh';
                 end_div.style.display = 'block';
                 end_div.style.transition = '20s'
             },2000);
             commentWiner();
-            merlin_img.classList.add('merlin-win');
             again_btn.classList.add('end-again');
         } else if (computerScore > userScore) {
             disableButtons();
@@ -258,7 +257,7 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(results_div, 2000);
             playLoser();
             window.setTimeout(function() {
-                body.style.display = 'tablet';
+                body.classList.add('body-end');
                 end_div.style.maxHeight = '100vh';
                 end_div.style.display = 'block';
                 end_div.style.transition = '20s'
