@@ -116,7 +116,7 @@ h5 {
     font-weight: normal;
 }
 
-#merlin-res p, #morgana-res p, #draw-res p {
+#merlin-res p, #morgana-res p, #rounds-left p {
     font-weight: bold;
 }
 
@@ -196,7 +196,7 @@ button:focus {
     border-radius: 10px;
 }
 
-#draw-res {
+#rounds-left {
     grid-row: 2;
     grid-column: 2/2;
     align-self: start;
@@ -272,7 +272,7 @@ hr {
     padding: 20px;
     border-radius: 10px;
     align-self: center;
-    font-size: 4em;
+    font-size: 5em;
     text-shadow: 4px 4px 7px #6d0404;
     text-decoration: underline;
     transition: all 2s ease;
@@ -297,6 +297,14 @@ hr {
     transition: all 2s ease;
 }
 
+#end-draw {
+    display: none;
+}
+
+#end-draw img {
+    margin: 0 10px;
+}
+
 /* Media queries */
 
 /* Tablet */
@@ -315,7 +323,7 @@ hr {
         grid-column: 2/3;
     }
     
-    #draw-res {
+    #rounds-left {
         grid-row: 2;
         grid-column: 1/3;
     }
@@ -344,7 +352,7 @@ hr {
         grid-row: 2;
     }
     
-    #draw-res {
+    #rounds-left {
         grid-row: 3;
         grid-column: 1/2;
     }
@@ -364,7 +372,7 @@ hr {
         flex-direction: column;
     }
 
-    #draw-res {
+    #rounds-left {
         align-self: center;
     }
 
@@ -405,7 +413,7 @@ hr {
         margin-top: 50px;
     }
 
-    #merlin-res, #morgana-res, #draw-res {
+    #merlin-res, #morgana-res, #rounds-left {
         margin-top: 20px;
     }
 
@@ -470,7 +478,7 @@ hr {
         font-size: 5em;
     }
 
-    #user-score, #computer-score, #draw-score {
+    #user-score, #computer-score, #rounds-score {
         font-size: 5em;
     }
 

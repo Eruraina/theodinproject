@@ -1,9 +1,9 @@
 var userScore = 0;
 var computerScore = 0;
-var drawScore = 0;
+var roundsLeft = 10;
 const userScore_p = document.getElementById('user-score');
 const computerScore_p = document.getElementById('computer-score');
-const drawScore_p = document.getElementById('draw-score');
+const roundsLeft_p = document.getElementById('round-score');
 const results_div = document.querySelector('#results');
 const comment_div = document.querySelector('#comment');
 const rock_btn = document.getElementById('user-rock');
@@ -25,6 +25,7 @@ const morgana_img = document.getElementById('morgana-img');
 const merlin_div = document.getElementById('merlin');
 const morgana_div = document.getElementById('morgana');
 const body = document.getElementById('body');
+const endDraw_div = document.getElementById('end-draw');
 
 
 // Function to play enter button audio on click
@@ -141,8 +142,10 @@ function playDraw() {
 // If the User wins
 function win(userChoice, computerChoice) {
     userScore++;
+    roundsLeft--;
     userScore_p.innerHTML = userScore;
     computerScore_p.innerHTML = computerScore;
+    roundsLeft_p.innerHTML = roundsLeft;
     // playWin();
     removeLoseShadow();
     user_img.classList.add('win-color');
@@ -153,8 +156,10 @@ function win(userChoice, computerChoice) {
 // If the User loses
 function lose(userChoice, computerChoice) {
     computerScore++;
+    roundsLeft--;
     computerScore_p.innerHTML = computerScore;
     userScore_p.innerHTML = userScore;
+    roundsLeft_p.innerHTML = roundsLeft;
     // playLoss();
     removeWinShadow();
     user_img.classList.add('lose-color');
@@ -165,8 +170,8 @@ function lose(userChoice, computerChoice) {
 
 // If it's a tie
 function draw() {
-    drawScore++;
-    drawScore_p.innerHTML = drawScore;
+    roundsLeft--;
+    roundsLeft_p.innerHTML = roundsLeft;
     removeWinShadow();
     removeLoseShadow();
     comment_div.innerHTML = "That was a draw. Try again.";
@@ -178,46 +183,47 @@ function game(userChoice) {
     if (userChoice == 'rock' && computerChoice == 'scissors') {
         win(userChoice, computerChoice);
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "win";
     } else if (userChoice == 'paper' && computerChoice == 'rock') {
         win(userChoice, computerChoice);
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "win";
     } else if (userChoice == 'scissors' && computerChoice == 'paper') {
         win(userChoice, computerChoice);
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "win";
     } else if (userChoice == 'rock' && computerChoice == 'paper') {
         lose(userChoice, computerChoice);
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "lose";
     } else if (userChoice == 'paper' && computerChoice == 'scissors') {
         lose(userChoice, computerChoice);
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "lose";
     } else if (userChoice == 'scissors' && computerChoice == 'rock') {
         lose(userChoice, computerChoice);
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "lose";
     } else {
         draw();
         computerColor(computerChoice);
-        playRound(userScore, computerScore);
+        playRound(userScore, computerScore, roundsLeft);
         return "draw";
     }
-    
 }
 
 // Function to decide who's the winner
-function playRound(userScore, computerScore, drawScore) {
-    if (userScore == 5 || computerScore == 5 || drawScore > 5) {
+function playRound(userScore, computerScore, roundsLeft) {
+    if (roundsLeft === 0) {
         if (userScore > computerScore) {
+            removeWinShadow();
+            removeLoseShadow();
             disableButtons();
             window.setTimeout(function() {
                 body.style.marginTop = '50px';
@@ -232,7 +238,9 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(scissors_btn, 2000);
             removeFadeOut(comment_div, 2000);
             removeFadeOut(results_div, 2000);
-            playWinner();
+            window.setTimeout(function () {
+                playWinner();
+            }, 2000);
             window.setTimeout(function() {
                 body.classList.add('body-end');
                 end_div.style.maxHeight = '100vh';
@@ -242,6 +250,8 @@ function playRound(userScore, computerScore, drawScore) {
             commentWiner();
             again_btn.classList.add('end-again');
         } else if (computerScore > userScore) {
+            removeWinShadow();
+            removeLoseShadow();
             disableButtons();
             window.setTimeout(function() {
                 body.style.marginTop = '50px';
@@ -255,7 +265,9 @@ function playRound(userScore, computerScore, drawScore) {
             removeFadeOut(compScissors_btn, 2000);
             removeFadeOut(comment_div, 2000);
             removeFadeOut(results_div, 2000);
-            playLoser();
+            window.setTimeout(function () {
+                playLoser();
+            }, 2000);
             window.setTimeout(function() {
                 body.classList.add('body-end');
                 end_div.style.maxHeight = '100vh';
@@ -266,36 +278,27 @@ function playRound(userScore, computerScore, drawScore) {
             commentLoser();
             morgana_img.classList.add('morgana-win');
             again_btn.classList.add('end-again');
-        } else if (drawScore > 5 ) {
-            if (userScore == computerScore) {
-                disableButtons();
-                window.setTimeout(function() {
-                    body.style.marginTop = '50px';
-                    again_btn.style.display = 'inline';
-                    again_btn.classList.add('computerPick');
-                }, 2000);
-                removeFadeOut(head_div, 2000);
-                removeFadeOut(compRock_btn, 2000);
-                removeFadeOut(compPaper_btn, 2000);
-                removeFadeOut(compScissors_btn, 2000);
-                removeFadeOut(comment_div, 2000);
-                removeFadeOut(results_div, 2000);
+        } else {
+            removeWinShadow();
+            removeLoseShadow();
+            disableButtons();
+            window.setTimeout(function() {
+                body.style.marginTop = '50px';
+                again_btn.style.display = 'inline';
+                again_btn.classList.add('computerPick');
+            }, 2000);
+            removeFadeOut(head_div, 2000);
+            removeFadeOut(merlin_div, 2000);
+            removeFadeOut(morgana_div, 2000);
+            removeFadeOut(comment_div, 2000);
+            removeFadeOut(results_div, 2000);
+            window.setTimeout(function () {
+                endDraw_div.style.display = 'flex';
+                endDraw_div.style.justifyContent = 'center';
+                endDraw_div.style.marginBottom = '50px';
                 playDraw();
-                window.setTimeout(function() {
-                    body.style.display = 'tablet';
-                    end_div.style.maxHeight = '100vh';
-                    end_div.style.display = 'grid';
-                    end_div.style.gridTemplateColumns = '1fr 1fr 1fr 1fr';
-                    end_div.style.gridTemplateRows = '1fr 1fr';
-                    merlin_img.style.height = '50%';
-                    morgana_img.style.height = '50%';
-                    end_div.style.gridRowGap = '30px';
-                    merlin_img.style.gridColumn = '1/3';
-                    morgana_img.style.gridColumn = '3/5';
-                    end_div.style.transition = 'all 3s ease-in';
-                },2000);
-                commentDraw();
-            }
+            }, 2000);
+            commentDraw();
         }
     }
 }
